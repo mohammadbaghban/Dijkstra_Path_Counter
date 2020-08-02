@@ -9,7 +9,7 @@ namespace Dijkstra_Git
         private static int[] parents; // Contains parent of each vertex
         private static List<int>[] tree; // Final tree that we have after dijkstra
         private static int[] counter; // Final answer. Times we have to pass through a vertex
-        
+
         public static void Main(string[] args)
         {
             int[,] graph = getGraph();
@@ -21,7 +21,7 @@ namespace Dijkstra_Git
             numberOfNodesOfSubstree(source);
             printCounter();
         }
-        
+
         static int[,] getGraph() // Gets number of vertices and adjacent matrix from user
         {
             V = Convert.ToInt32(Console.ReadLine());
@@ -38,7 +38,7 @@ namespace Dijkstra_Git
 
             return graph;
         }
-        
+
         static void initStaticVars()
         {
             parents = new int[V];
@@ -96,7 +96,7 @@ namespace Dijkstra_Git
                 }
             }
         }
-        
+
         static void createTree()
         {
             for (int i = 0; i < V; i++)
@@ -104,25 +104,23 @@ namespace Dijkstra_Git
                 tree[parents[i]].Add(i); // i is child of parents[i]
             }
         }
-        
+
         static void numberOfNodesOfSubstree(int source)
         {
             counter[source] = 1; // At least we have to pass a node once to get to itself
-            
+
             foreach (int child in tree[source])
             {
-
                 if (child == source)
                 {
                     continue;
                 }
-                
+
                 numberOfNodesOfSubstree(child);
 
                 counter[source] += counter[child];
             }
         }
-        
         
         static void printCounter()
         {
@@ -131,6 +129,5 @@ namespace Dijkstra_Git
                 Console.Write(counter[i] + " ");
             }
         }
-        
     }
 }

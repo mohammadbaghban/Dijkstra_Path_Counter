@@ -3,7 +3,8 @@
     internal class Program
     {
         private static int V; // Number of vertices
-
+        private static int[] parents; // Contains parent of each vertex
+        
         public static void Main(string[] args)
         {
         }
@@ -49,6 +50,7 @@
                     if (!sptSet[v] && graph[u, v] != 0 && dist[u] != int.MaxValue && dist[u] + graph[u, v] < dist[v])
                     {
                         dist[v] = dist[u] + graph[u, v];
+                        parents[v] = u;
                     }
                 }
             }

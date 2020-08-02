@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Dijkstra_Git
 {
@@ -6,10 +7,17 @@ namespace Dijkstra_Git
     {
         private static int V; // Number of vertices
         private static int[] parents; // Contains parent of each vertex
+        private static List<int>[] tree; // Final tree that we have after dijkstra
+        private static int[] counter; // Final answer. Times we have to pass through a vertex
         
         public static void Main(string[] args)
         {
             int[,] graph = getGraph();
+            int source = 0; // We consider vertex 0 as source
+
+            initStaticVars();
+            dijkstra(graph, source);
+            createTree();
         }
         
         static int[,] getGraph() // Gets number of vertices and adjacent matrix from user
@@ -27,6 +35,17 @@ namespace Dijkstra_Git
             }
 
             return graph;
+        }
+        
+        static void initStaticVars()
+        {
+            parents = new int[V];
+            counter = new int[V];
+            tree = new List<int>[V];
+            for (int i = 0; i < V; i++)
+            {
+                tree[i] = new List<int>();
+            }
         }
 
         static int minDistance(int[] dist, bool[] sptSet, int V)
@@ -75,5 +94,14 @@ namespace Dijkstra_Git
                 }
             }
         }
+        
+        static void createTree()
+        {
+            for (int i = 0; i < V; i++)
+            {
+                tree[parents[i]].Add(i); // i is child of parents[i]
+            }
+        }
+        
     }
 }

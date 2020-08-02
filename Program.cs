@@ -18,6 +18,8 @@ namespace Dijkstra_Git
             initStaticVars();
             dijkstra(graph, source);
             createTree();
+            numberOfNodesOfSubstree(source);
+            printCounter();
         }
         
         static int[,] getGraph() // Gets number of vertices and adjacent matrix from user
@@ -100,6 +102,33 @@ namespace Dijkstra_Git
             for (int i = 0; i < V; i++)
             {
                 tree[parents[i]].Add(i); // i is child of parents[i]
+            }
+        }
+        
+        static void numberOfNodesOfSubstree(int source)
+        {
+            counter[source] = 1; // At least we have to pass a node once to get to itself
+            
+            foreach (int child in tree[source])
+            {
+
+                if (child == source)
+                {
+                    continue;
+                }
+                
+                numberOfNodesOfSubstree(child);
+
+                counter[source] += counter[child];
+            }
+        }
+        
+        
+        static void printCounter()
+        {
+            for (int i = 0; i < V; i++)
+            {
+                Console.Write(counter[i] + " ");
             }
         }
         

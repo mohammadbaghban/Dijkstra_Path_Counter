@@ -1,4 +1,6 @@
-﻿namespace Dijkstra_Git
+﻿using System;
+
+namespace Dijkstra_Git
 {
     internal class Program
     {
@@ -7,6 +9,24 @@
         
         public static void Main(string[] args)
         {
+            int[,] graph = getGraph();
+        }
+        
+        static int[,] getGraph() // Gets number of vertices and adjacent matrix from user
+        {
+            V = Convert.ToInt32(Console.ReadLine());
+            int[,] graph = new int[V, V];
+            for (int i = 0; i < V; i++)
+            {
+                String line = Console.ReadLine();
+                String[] nums = line.Split(' ');
+                for (int j = 0; j < V; j++)
+                {
+                    graph[i, j] = Int16.Parse(nums[j]);
+                }
+            }
+
+            return graph;
         }
 
         static int minDistance(int[] dist, bool[] sptSet, int V)
